@@ -1,0 +1,41 @@
+Framework
+-start repository on github
+-npm init
+-touch app.js 
+-views folder with pug files
+	-register account
+	-login
+	-message board
+	-your own messages
+	-1post
+-public folder with jquery and custom.js and maybe custom.css
+
+Account registration
+-create a form in pug where people can post their username, email and password
+-this information needs to be stored in a database in the table 'users'
+-use a post request for this
+
+Logging
+-any user can log in to start a session
+-log in requires a password and the corresponding username or email
+-log in uses a post request and starts a session
+-log out finishes the session
+
+Posts
+-a logged in user can create a post with a title and textbox
+-the post is linked to the user
+-the post is posted with a post request
+-every post can be commented on by a logged in user
+-this comment is a textbox and is linked to a user
+-posts and comments can be viewed by a get request
+-when everything works, add edit and delete options to posts and comments
+-delete can not work on a post that has comments
+
+Tables
+-There a 3 tables
+	-users
+	-posts
+	-comments
+-a column in the table users has the keys serial primary key, username, email and password
+-a column in the table posts has the keys serial primary key, title, body and UserID -which comes from the user that posted it-
+-a column in the table comments has the keys serial primary key, body, UserID -which comes from the user that posted it- and PostID -which is linked to the post it was commenting on-
