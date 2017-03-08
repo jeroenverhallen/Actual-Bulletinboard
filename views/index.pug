@@ -1,0 +1,24 @@
+html
+    head
+        title Blog application
+        link(rel="stylesheet" href="/bootstrap.css")
+        link(rel="stylesheet" href="/custom.css")
+    body
+        h1 Blog application
+        div
+            a( href="/new-user") New User
+        div
+            a( href="/messageboard" ) View all posts 
+        if !user
+            a( href="/login" ) Login 
+        else
+            a( href="/logout" ) Logout
+        div
+            a( href="/your-posts" ) View your posts
+        if user
+            a( href="/newpost" ) Write a new message
+        
+        block content
+
+        script(src="/custom.js")
+        script(src="/jquery.js")

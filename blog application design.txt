@@ -19,7 +19,7 @@ Logging
 -any user can log in to start a session
 -log in requires a password and the corresponding username or email
 -log in uses a post request and starts a session
--log out finishes the session
+-log out destroys the session
 
 Posts
 -a logged in user can create a post with a title and textbox

@@ -1,0 +1,10 @@
+extends ./index
+block content
+    h1 New Message
+    p1 Write your new post here
+    form( action="newpost" method="post" )
+        div
+            input( type="text", name="title", placeholder="title" )
+        div
+            textarea( type="text", name="message", placeholder="write your message here" )
+        input( type="submit" )

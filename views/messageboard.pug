@@ -1,0 +1,9 @@
+extends ./index
+block content
+    h1 Messageboard... More like message bored, amirite? I'm sorry, that was terrible
+    hr
+    .container
+        each post in posts
+            .card.card-block
+                h4( class="card-title" )= post.title
+                p( class="card-text" )= post.message

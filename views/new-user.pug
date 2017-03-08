@@ -1,9 +1,12 @@
 extends ./index
 block content
-    h1 Login
-    form( id="login" action="login" method="post" )
+    h1 New User
+    p register here
+    form( action="new-user" method="post" )
         div
             input( type="text", name="username", placeholder="username" )
+        div
+            input( type="email", name="email", placeholder="your e-mail" )
         div
             input( type="password", name="password", placeholder="password" )
         input( type="submit" )

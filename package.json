@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/jeroenverhallen/Actual-Bulletinboard/issues"
   },
-  "homepage": "https://github.com/jeroenverhallen/Actual-Bulletinboard#readme"
+  "homepage": "https://github.com/jeroenverhallen/Actual-Bulletinboard#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express-session": "^1.15.1",
+    "pg": "^6.1.2"
+  }
 }
