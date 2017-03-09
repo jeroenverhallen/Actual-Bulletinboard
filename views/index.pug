@@ -13,8 +13,9 @@ html
             a( href="/login" ) Login 
         else
             a( href="/logout" ) Logout
-        div
-            a( href="/your-posts" ) View your posts
+        if user
+            div
+                a( href="/your-posts" ) View your posts
         if user
             a( href="/newpost" ) Write a new message
         

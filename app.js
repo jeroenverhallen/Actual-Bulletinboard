@@ -17,16 +17,16 @@ const db = new sequelize( 'blogapp', process.env.POSTGRES_USER,
 app.set( 'view engine', 'pug' )
 app.set( 'views', __dirname + '/views' )
 app.use( bodyparser.urlencoded( { extended: true } ) )
-app.use(express.static('public'));
+app.use( express.static( 'public' ) );
 
 // user a session for login functionality
 app.use( session( {
     secret: 'omg, such a secret secret',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
         secure: false,
-        maxAge: 1000
+        maxAge: 1000 * 60 * 60
     }
 } ) )
 
@@ -56,38 +56,49 @@ user.hasMany( comment )
 app.set( 'views', __dirname + '/views' )
 app.set( 'view engine', 'pug' )
 
+
+
 app.get( '/', ( req, res ) => {
-    res.render( 'index' )
+    console.log('THe session is ', req.session)
+    res.render( 'index', {
+        user: req.session.user
+    } )
 } )
 
 app.get( '/new-user', ( req, res ) => {
-    res.render( 'new-user', { user: req.session.user } )
+    res.render( 'new-user', {
+        user: req.session.user
+    } )
 } )
 
 app.get( '/messageboard', ( req, res ) => {
     post.findAll().then( allposts => { 
-        res.render( 'messageboard', { posts: allposts }, { user: req.session.user } )
+        res.render( 'messageboard', { posts: allposts, user: req.session.user } )
     } ) 
 } )
 
 app.get( '/login', ( req, res ) => {
-    res.render( 'login', { user: req.session.user } )
-} )
-
-app.get( '/logout', ( req, res ) => {
-    res.render( 'logout', { user: req.session.user } )
+    res.render( 'login', {
+        user: req.session.user
+    } )
 } )
 
 app.get( '/your-posts', ( req, res ) => {
-    res.render( 'userposts', { user: req.session.user } )
+    res.render( 'userposts', {
+        user: req.session.user
+    } )
 } )
 
 app.get( '/newpost', ( req, res ) => {
-    res.render( 'newpost', { user: req.session.user } )
+    res.render( 'newpost', {
+        user: req.session.user
+    } )
 } )
 
 app.get( '/index', ( req, res ) => {
-    res.render( 'index', { user: req.session.user }  )
+    res.render( 'index', {
+        user: req.session.user
+    } )
 } )
 
 app.post( '/new-user', ( req, res ) => {
@@ -96,16 +107,21 @@ app.post( '/new-user', ( req, res ) => {
         email: req.body.email,
         password: req.body.password
     } ).then ( f => {
-        res.render( 'login', { user: req.session.user } )
+        res.render( 'login', {
+        user: req.session.user
+    } )
     } )
 } )
 
 app.post( '/newpost', ( req, res ) => {
     return post.create( {
         title: req.body.title,
-        message: req.body.message
+        message: req.body.message,
+        userId: req.session.user.id
     } ).then ( f => {
-        res.render( 'index', { user: req.session.user } )
+        res.render( 'index', {
+        user: req.session.user
+    } )
     } )
 } )
 
@@ -119,19 +135,20 @@ app.post( '/login', ( req, res ) => {
         console.log('User from database is ',theuser )
         if ( theuser.password == req.body.password ) {
             req.session.user = theuser
+            console.log('Login session set to', req.session)
             res.render( 'index', {
                user: theuser 
             } )
         } else {
             res.render( 'login' )
         }
-    } )
+    } ).catch(console.log.bind(console))
 } )
 
- app.post( '/logout', ( req, res ) => {
-     req.session.destroy(  )
-     res.render( 'index' )
- } )
+  app.get( '/logout', ( req, res ) => {
+      req.session.destroy( )
+      res.render( 'index' )
+  } )
 
 app.listen( 3000, f => {
     console.log( 'Yo daaaawg! check out this sweeeet blog application on localhost: 3000' )
