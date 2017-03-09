@@ -84,7 +84,7 @@ app.get( '/login', ( req, res ) => {
 } )
 
 app.get( '/your-posts', ( req, res ) => {
-    post.findAll({ where: { userId : req.session.user.id } } ).then( allposts => { 
+    post.findAll( { where: { userId : req.session.user.id } } ).then( allposts => { 
         res.render( 'userposts', { posts: allposts, user: req.session.user } )
     } ) 
 } )
@@ -98,6 +98,30 @@ app.get( '/newpost', ( req, res ) => {
 app.get( '/index', ( req, res ) => {
     res.render( 'index', {
         user: req.session.user
+    } )
+} )
+
+app.get( '/:title', ( req, res) => {
+    console.log( req.params.title )
+    post.findOne( {
+        where: {
+            title: req.params.title
+        }
+    } ).then( singlepost  => {
+        res.render( '1post', {
+            post: singlepost,
+            user: req.session.user
+        } )
+    } )
+} )
+
+app.post( ':title', ( req, res ) => {
+    console.log( req.body.message )
+    comment.create( {
+        message: req.body.message,
+        userId: req.session.user.id
+    } ).then ( f => {
+        res.render( '1post', { user: req.session.user } )
     } )
 } )
 
