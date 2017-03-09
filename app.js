@@ -84,9 +84,9 @@ app.get( '/login', ( req, res ) => {
 } )
 
 app.get( '/your-posts', ( req, res ) => {
-    res.render( 'userposts', {
-        user: req.session.user
-    } )
+    post.findAll({ where: { userId : req.session.user.id } } ).then( allposts => { 
+        res.render( 'userposts', { posts: allposts, user: req.session.user } )
+    } ) 
 } )
 
 app.get( '/newpost', ( req, res ) => {
