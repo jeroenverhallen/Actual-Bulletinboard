@@ -5,6 +5,6 @@ block content
     .container
         each post in posts
             .card.card-block
-                a( href="/" + post.title )
+                a( href="/singlepost/" + post.title )
                     h( class="card-title" )= post.title
                 p( class="card-text" )= post.message

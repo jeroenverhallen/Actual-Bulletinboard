@@ -1,0 +1,20 @@
+extends ./index
+block content
+    h1 Comment section
+    .container
+        .card.card-block
+            if post
+                h1( class = "card-title"  )= post.title
+                p( class = "card-text" style="font-style:italic" ) written by #{post.user.username}
+                p( class = "card-text" )= post.message
+                ul 
+                    if ( post.comments )
+                        each comment in post.comments
+                            p( class = "card-text" style="font-style:italic" ) #{post.user.username} comments
+                            li( class = "card-text" )= comment.message
+        form( action="comment" method="post" )
+            div
+                if post
+                    input(name="postId", value=post.id hidden)
+                textarea( type="text", name="comment", placeholder="write your awesome comment here" )
+            input( type="submit" )
