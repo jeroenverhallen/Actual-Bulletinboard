@@ -5,12 +5,12 @@ block content
         .card.card-block
             if post
                 h1( class = "card-title"  )= post.title
-                p( class = "card-text" style="font-style:italic" ) written by #{post.user.username}
+                p( class = "card-text" style="font-style:italic" ) written by #{comment.user.username}
                 p( class = "card-text" )= post.message
                 ul 
                     if ( post.comments )
                         each comment in post.comments
-                            p( class = "card-text" style="font-style:italic" ) #{post.user.username} comments
+                            p( class = "card-text" style="font-style:italic" ) #{comment.user.username} comments
                             li( class = "card-text" )= comment.message
         form( action="comment" method="post" )
             div
